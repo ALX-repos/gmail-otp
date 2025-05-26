@@ -22,7 +22,7 @@ const GmailSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   password: {
     type: String,
@@ -30,7 +30,7 @@ const GmailSchema = new Schema({
   redirect_email: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   redirect_password: {
     type: String,
