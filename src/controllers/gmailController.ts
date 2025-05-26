@@ -34,22 +34,22 @@ export const generateTokens = async (
       return;
     }
 
-    const isUnique = await Promise.all(
-      accounts.map(async (account) => {
-        const existingAccount = await Gmail.findOne({
-          $or: [
-            { email: account.email },
-            { redirect_email: account.redirect_email },
-          ],
-        });
-        return !existingAccount;
-      })
-    ).then((results) => results.every((result) => result));
+    // const isUnique = await Promise.all(
+    //   accounts.map(async (account) => {
+    //     const existingAccount = await Gmail.findOne({
+    //       $or: [
+    //         { email: account.email },
+    //         { redirect_email: account.redirect_email },
+    //       ],
+    //     });
+    //     return !existingAccount;
+    //   })
+    // ).then((results) => results.every((result) => result));
 
-    if (!isUnique) {
-      res.status(400).json({ message: "Some accounts already exist" });
-      return;
-    }
+    // if (!isUnique) {
+    //   res.status(400).json({ message: "Some accounts already exist" });
+    //   return;
+    // }
 
     const tokensPromise = accounts.map(async (account) => {
       while (true) {

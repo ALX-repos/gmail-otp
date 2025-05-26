@@ -41,19 +41,21 @@ const generateTokens = (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.status(400).json({ message: "No accounts provided" });
             return;
         }
-        const isUnique = yield Promise.all(accounts.map((account) => __awaiter(void 0, void 0, void 0, function* () {
-            const existingAccount = yield gmailModel_1.default.findOne({
-                $or: [
-                    { email: account.email },
-                    { redirect_email: account.redirect_email },
-                ],
-            });
-            return !existingAccount;
-        }))).then((results) => results.every((result) => result));
-        if (!isUnique) {
-            res.status(400).json({ message: "Some accounts already exist" });
-            return;
-        }
+        // const isUnique = await Promise.all(
+        //   accounts.map(async (account) => {
+        //     const existingAccount = await Gmail.findOne({
+        //       $or: [
+        //         { email: account.email },
+        //         { redirect_email: account.redirect_email },
+        //       ],
+        //     });
+        //     return !existingAccount;
+        //   })
+        // ).then((results) => results.every((result) => result));
+        // if (!isUnique) {
+        //   res.status(400).json({ message: "Some accounts already exist" });
+        //   return;
+        // }
         const tokensPromise = accounts.map((account) => __awaiter(void 0, void 0, void 0, function* () {
             while (true) {
                 const token = (0, utils_1.generateToken)(account.service.name.slice(0, 2), 32);
